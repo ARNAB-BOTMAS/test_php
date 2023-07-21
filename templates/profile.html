@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body bgcolor="#333">
+    <div class="pronav" id="mypronav">
+        <h1>Developer</h1>
+    </div>
+    <div class="probanner">
+        <div class="propic">
+            {% for image in images %}
+                <img src="data:image/jpeg;base64,{{ image }}" class="profile_pic">
+            {% endfor %}
+        </div>
+        <div class="profile_text">
+            <h3>Welcome, Developer {{ username }}!</h3>
+            <p>Email: {{ email }}</p>
+            <p>Company ID: SRIshtiAAT2023</p>
+            <label>
+                API_KEY<input type="text" id="text-input" placeholder="********************************************" value="{{ valid_api_key }}" readonly class="api_tab">
+            </label>
+            <button onclick="copyText()">Copy</button><br><br>
+            <a href="/logout"><button style="max-width: 150px; width: 100%; min-width: 80px;">Log Out</button></a><br><br>
+            <button onclick="showTable('table1')" style="max-width: 73px; width: 100%; min-width: 50px">Table 1</button>
+            <button onclick="showTable('table2')" style="max-width: 73px; width: 100%; min-width: 50px;">Table 2</button>
+        </div>
+    </div>
+        <div class="user_database">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="flash-message">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <div id="table1" class="table-container active">
+                <h2>Active user</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for row in user_database %}
+                        <tr>
+                            <td>{{ row['id'] }}</td>
+                            <td>{{ row['name'] }}</td>
+                            <td>{{ row['gender'] }}</td>
+                            <td>{{ row['email'] }}</td>
+                            <td>{{ row['password'] }}</td>
+                            <td>
+                                <form method="POST" action="/delete">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="user_id" value="{{ row['id'] }}">
+                                    <input type="hidden" name="url" value="{{ valid_api_key }}">
+                                    <input type="submit" value="DELETE" style="width: 100%;">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div id="table2" class="table-container">
+                <h2>Active Face ID</h2>
+                <table>
+                    <tr>
+                        <th>Face_ID</th>
+                    </tr>
+                    {% set seen_ids = [] %}
+                    {% for row in face_id %}
+                        {% if row['face_id'] not in seen_ids %}
+                            {% set _ = seen_ids.append(row['face_id']) %}
+                            <tr>
+                                <td>{{ row['face_id'] }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <script>
+            function showTable(tableId) {
+                // Hide all table containers
+                var containers = document.getElementsByClassName('table-container');
+                for (var i = 0; i < containers.length; i++) {
+                    containers[i].classList.remove('active');
+                }
+                
+                // Show the selected table container
+                var tableContainer = document.getElementById(tableId);
+                tableContainer.classList.add('active');
+            }
+
+            function copyText() {
+                /* Get the input field and its value */
+                var inputField = document.getElementById("text-input");
+                var textToCopy = inputField.value;
+
+                /* Create a temporary input element to hold the text */
+                var tempInput = document.createElement("input");
+                tempInput.type = "text";
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
+
+                /* Copy the text from the input element */
+                tempInput.select();
+                document.execCommand("copy");
+
+                /* Remove the temporary input element */
+                document.body.removeChild(tempInput);
+
+                /* Clear the input field */
+                inputField.value = "";
+
+                /* Alert the user that the text has been copied */
+                alert("Text copied: " + textToCopy);
+            }
+        </script>
+</body>
+</html>

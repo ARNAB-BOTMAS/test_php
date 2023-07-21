@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Srishti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+
+<div class="topnav" id="myTopnav">
+  <a href="/" class="active">Home</a>
+  <a href="/login">Log in</a>
+  <a href="/register">Register</a>
+  <a href="/about">About</a>
+  <a href="/download">Download</a>
+  <a href="/contact">Contact Us</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+<div class="banner">
+    <h1 style="justify-content: center;">Welcome</h1>
+</div>
+<div class="body">
+    <main>
+      <div class="content">
+          <h2>Srishti AI</h2>
+          <p>Srishti AI is an advanced speech recognition system that utilizes cutting-edge technology to provide accurate and intelligent speech recognition capabilities. Our internal system hosts a range of powerful features designed to enhance your speech recognition experience.</p>
+          
+          <h2>Key Features:</h2>
+          <ul>
+              <li>Highly accurate speech recognition</li>
+              <li>Support for multiple languages</li>
+              <li>Real-time transcription and translation</li>
+              <li>Customizable vocabulary and voice commands</li>
+              <li>Intelligent voice assistant integration</li>
+              <li>Secure and private data handling</li>
+          </ul>
+          
+          <h2>Download Srishti AI:</h2>
+          <p>To experience the power of Srishti AI, download our speech recognition system today. Click the button below to start the download.</p>
+          <a href="https://drive.google.com/uc?export=download&id=1qfE28dNIxw7uOo9sER2sHSPvILNyPEVw" class="btn-download">Download Now</a>
+          
+          <div class="testimonial">
+              <blockquote>"Srishti AI has revolutionized the way we interact with speech recognition systems. Its accuracy and intelligence are unmatched, making it an invaluable tool for our organization."</blockquote>
+              <!-- <cite>John Smith, CEO of ABC Corporation</cite> -->
+          </div>
+
+          <h2>Enhance Your Productivity</h2>
+          <p>Srishti AI is not just a speech recognition system; it's a productivity powerhouse. Whether you're a professional writer, a busy executive, or a student preparing for exams, Srishti AI can significantly boost your efficiency and effectiveness.</p>
+
+          <h2>Seamless Integration</h2>
+          <p>Integrate Srishti AI seamlessly into your existing workflows. Our system is compatible with popular productivity tools and platforms, allowing you to dictate documents, compose emails, take voice notes, and more with ease.</p>
+
+          <h2>Privacy and Security</h2>
+          <p>At Srishti AI, we prioritize the privacy and security of your data. Our system employs advanced encryption and data protection measures, ensuring that your voice recordings and personal information are kept confidential.</p>
+
+          <h2>Continuous Improvement</h2>
+          <p>We are committed to continuously improving Srishti AI by leveraging the latest advancements in machine learning and artificial intelligence. This means you can expect regular updates and enhancements to further enhance your speech recognition experience.</p>
+      </div>
+    </main>
+</div>
+<div class="footer">
+    <h3 style="padding-left: 10px; padding-top: 10px;">This our Developer team</h3><br>
+    <div class="user-images">
+      {% for image, username in image_user_mapping.items() %}  
+      <div class="user-card">
+          <img src="data:image/jpeg;base64,{{ image }}" alt="Image">
+          <h4>
+            {% if username == 'Arnab Mondal' %}
+                Main Developer: {{ username }}
+            {% else %}
+                Developer: {{ username }}
+            {% endif %}
+          </h4>
+      </div>
+      {% endfor %}
+    </div>
+    <hr style="max-width: 90%; width: 100%;">
+    <p>&copy; 2023 Srishti. All rights reserved.</p>
+</div>
+
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+</body>
+</html>
