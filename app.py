@@ -15,4 +15,4 @@ def serve_php_file():
 
 if __name__ == "__main__":
     # Run the Flask application on port 8080
-    app.run(port=8080)
+    app.run()
